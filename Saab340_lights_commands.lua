@@ -17,12 +17,6 @@ function turn_off_taxi_light()
     end
 end
 
-create_command("FlyWithLua/finlayc/Saab340/taxi_light_on", "turn taxi light on",
-"turn_on_taxi_light()", "", "")
-
-create_command("FlyWithLua/finlayc/Saab340/taxi_light_off", "turn taxi light off",
-"turn_off_taxi_light()", "", "")
-
 -- strobe lights
 ref_strobe_light_pos = XPLMFindDataRef("LES/saab/OH/strobe_light_toggle_pos")
 
@@ -41,12 +35,6 @@ function turn_off_strobe_lights()
         XPLMSetDatai(ref_strobe_light_pos, 0)
     end
 end
-
-create_command("FlyWithLua/finlayc/Saab340/strobe_lights_on", "turn strobe lights on",
-"turn_on_strobe_lights()", "", "")
-
-create_command("FlyWithLua/finlayc/Saab340/strobe_lights_off", "turn strobe lights off",
-"turn_off_strobe_lights()", "", "")
 
 -- landing lights
 ref_landing_light_pos_l = XPLMFindDataRef("LES/saab/OH/landing_light_toggle_pos_L")
@@ -78,8 +66,22 @@ function turn_off_landing_lights()
     end
 end
 
-create_command("FlyWithLua/finlayc/Saab340/landing_lights_on", "turn L&R landing lights on",
-"turn_on_landing_lights()", "", "")
+if string.sub(AIRCRAFT_FILENAME, 1, 13) == "LES_Saab_340A" then
+    create_command("FlyWithLua/finlayc/Saab340/taxi_light_on", "turn taxi light on",
+    "turn_on_taxi_light()", "", "")
+    
+    create_command("FlyWithLua/finlayc/Saab340/taxi_light_off", "turn taxi light off",
+    "turn_off_taxi_light()", "", "")
 
-create_command("FlyWithLua/finlayc/Saab340/landing_lights_off", "turn L&R landing lights off",
-"turn_off_landing_lights()", "", "")
+    create_command("FlyWithLua/finlayc/Saab340/strobe_lights_on", "turn strobe lights on",
+    "turn_on_strobe_lights()", "", "")
+
+    create_command("FlyWithLua/finlayc/Saab340/strobe_lights_off", "turn strobe lights off",
+    "turn_off_strobe_lights()", "", "")
+
+    create_command("FlyWithLua/finlayc/Saab340/landing_lights_on", "turn L&R landing lights on",
+    "turn_on_landing_lights()", "", "")
+
+    create_command("FlyWithLua/finlayc/Saab340/landing_lights_off", "turn L&R landing lights off",
+    "turn_off_landing_lights()", "", "")
+end
