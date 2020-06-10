@@ -1,8 +1,7 @@
 -- Assign a joystick axis as 'backup throttle' and it will be used
 -- to set ctot dial position
 
-DataRef("ctot_dial", "LES/saab/CTOT/dial", "writable")
-DataRef("ctot_pos", "LES/saab/CTOT/dial_pos", "writable")
+
 axis_reversed = false
 
 function find_backup_throttle_axis()
@@ -38,6 +37,8 @@ end
 if string.sub(AIRCRAFT_FILENAME, 1, 13) == "LES_Saab_340A" then
     backup_throttle_axis = find_backup_throttle_axis()
     DataRef("ctot_val", "sim/joystick/joystick_axis_values", "readonly", backup_throttle_axis)
+    DataRef("ctot_dial", "LES/saab/CTOT/dial", "writable")
+    DataRef("ctot_pos", "LES/saab/CTOT/dial_pos", "writable")
     do_every_frame("set_ctot()")
     --do_every_draw("draw_ctot_info()")
 end
