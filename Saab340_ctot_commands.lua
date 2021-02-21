@@ -1,25 +1,20 @@
--- LES/CMD/CTOT/toggle_L
--- LES/saab/CTOT/toggle_L_pos
--- LES/CMD/CTOT/toggle_R
--- LES/saab/CTOT/toggle_R_pos
-
-ref_ctot_pos_l = XPLMFindDataRef("LES/saab/CTOT/toggle_L_pos")
-ref_ctot_pos_r = XPLMFindDataRef("LES/saab/CTOT/toggle_R_pos")
+ref_ctot_pos_l = XPLMFindDataRef("les/sf34a/acft/engn/anm/ctot_switch_L")
+ref_ctot_pos_r = XPLMFindDataRef("les/sf34a/acft/engn/anm/ctot_switch_R")
 
 function toggle_ctot()
-    command_once("LES/CMD/CTOT/toggle_L")
-    command_once("LES/CMD/CTOT/toggle_R")
+    command_once("les/sf34a/acft/engn/mnp/ctot_switch_L")
+    command_once("les/sf34a/acft/engn/mnp/ctot_switch_R")
 end
 
 function turn_on_ctot()
     local current_pos = XPLMGetDatai(ref_ctot_pos_l)
     if (current_pos == 0) then
-        command_once("LES/CMD/CTOT/toggle_L")
+        command_once("les/sf34a/acft/engn/mnp/ctot_switch_L")
         XPLMSetDatai(ref_ctot_pos_l, 1)
     end
     current_pos = XPLMGetDatai(ref_ctot_pos_r)
     if (current_pos == 0) then
-        command_once("LES/CMD/CTOT/toggle_R")
+        command_once("les/sf34a/acft/engn/mnp/ctot_switch_R")
         XPLMSetDatai(ref_ctot_pos_r, 1)
     end
 end
@@ -27,12 +22,12 @@ end
 function turn_off_ctot()
     local current_pos = XPLMGetDatai(ref_ctot_pos_l)
     if (current_pos == 1) then
-        command_once("LES/CMD/CTOT/toggle_L")
+        command_once("les/sf34a/acft/engn/mnp/ctot_switch_L")
         XPLMSetDatai(ref_ctot_pos_l, 0)
     end
     current_pos = XPLMGetDatai(ref_ctot_pos_r)
     if (current_pos == 1) then
-        command_once("LES/CMD/CTOT/toggle_R")
+        command_once("les/sf34a/acft/engn/mnp/ctot_switch_R")
         XPLMSetDatai(ref_ctot_pos_r, 0)
     end
 end

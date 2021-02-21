@@ -1,21 +1,29 @@
 -- prop sync
-ref_prop_sync_toggle = XPLMFindDataRef("LES/saab/prop/prop_sync_toggle")
+ref_prop_sync_pos = XPLMFindDataRef("les/sf34a/acft/engn/anm/prop_sync_switch")
 
 function turn_on_prop_sync()
-    XPLMSetDatai(ref_prop_sync_toggle, 1)
+    local current_pos = XPLMGetDatai(ref_prop_sync_pos)
+    if (current_pos == 0) then
+        command_once("les/sf34a/acft/engn/mnp/prop_sync_switch")
+        XPLMSetDatai(ref_prop_sync_pos, 1)
+    end
 end
 
 function turn_off_prop_sync()
-    XPLMSetDatai(ref_prop_sync_toggle, 0)
+    local current_pos = XPLMGetDatai(ref_prop_sync_pos)
+    if (current_pos == 1) then
+        command_once("les/sf34a/acft/engn/mnp/prop_sync_switch")
+        XPLMSetDatai(ref_prop_sync_pos, 0)
+    end
 end
 
 -- auto coarsen
-ref_autocoarsen_pos = XPLMFindDataRef("LES/saab/OH/autocoarsen_toggle_pos")
+ref_autocoarsen_pos = XPLMFindDataRef("les/sf34a/acft/engn/anm/autocoarsen_switch")
 
 function turn_on_autocoarsen()
     local current_pos = XPLMGetDatai(ref_autocoarsen_pos)
     if (current_pos == 0) then
-        command_once("LES/CMD/engine/overhead/auto_coarsen_toggle")
+        command_once("les/sf34a/acft/engn/mnp/autocoarsen_switch")
         XPLMSetDatai(ref_autocoarsen_pos, 1)
     end
 end
@@ -23,7 +31,7 @@ end
 function turn_off_autocoarsen()
     local current_pos = XPLMGetDatai(ref_autocoarsen_pos)
     if (current_pos == 1) then
-        command_once("LES/CMD/engine/overhead/auto_coarsen_toggle")
+        command_once("les/sf34a/acft/engn/mnp/autocoarsen_switch")
         XPLMSetDatai(ref_autocoarsen_pos, 0)
     end
 end
