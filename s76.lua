@@ -19,11 +19,14 @@ local MIXTURE2_AXIS_INDEX = 29
 local mixture_l_axis_index = find_axis_value_index(MIXTURE1_AXIS_INDEX)
 local mixture_r_axis_index = find_axis_value_index(MIXTURE2_AXIS_INDEX)
 
--- Only run for the S-76C aircraft.
-if AIRCRAFT_FILENAME ~= "S-76C.acf" then
+-- Only run for the S-76C or S-76A aircraft.
+if AIRCRAFT_FILENAME ~= "S-76C.acf" and AIRCRAFT_FILENAME ~= "S-76A.acf" then
     return
 end
-logMsg("S-76C fuel lever script loaded.")
+logMsg("S-76C/A custom script loaded.")
+
+-- Create global table dataref for instruments brightness
+ibr = dataref_table("sim/cockpit2/switches/instrument_brightness_ratio")
 
 -- Create global Lua variables linked to the joystick axis datarefs.
 DataRef("mixture_L_axis_value", "sim/joystick/joystick_axis_values", "readonly", mixture_l_axis_index)
@@ -65,3 +68,10 @@ end
 do_every_frame("s76_mixture_update()")
 
 logMsg("S-76C fuel lever script is active and will auto-detect reversed axes.")
+
+-- Create custom commands for the Radio & DME display LED brightness control
+create_command("FlyWithLua/finlayc/s76/radio_dme_brightness_up", "Increase Radio & DME LED brightness",
+    "ibr[2] = math.min(1.0, math.max(0.0, ibr[2] + 0.1))", "", "")
+
+create_command("FlyWithLua/finlayc/s76/radio_dme_brightness_down", "Decrease Radio & DME LED brightness",
+    "ibr[2] = math.min(1.0, math.max(0.0, ibr[2] - 0.1))", "", "")
